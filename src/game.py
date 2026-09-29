@@ -2,6 +2,12 @@ import pygame
 import settings
 
 class Game:
+    """
+    Main application controller
+
+    It handles the main game loop, process de input events, updates the application 
+    states, and renders all the objects.
+    """
 
     def __init__(self) -> None:
         pygame.init()
@@ -10,7 +16,12 @@ class Game:
 
         self.running = True
 
-    def update(self) -> None:
+    def handle_events(self) -> None:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                self.running = False
+
+    def update(self, dt: float) -> None:
         pass
 
     def draw(self) -> None:
@@ -19,10 +30,11 @@ class Game:
     def run(self) -> None:
 
         while self.running:
-
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    self.running = False
+            dt = self.clock.tick(settings.FPS) / 1000
+            self.handle_events()
+            self.update(dt)
+            self.draw()
+            
 
         pygame.quit()
 
