@@ -1,6 +1,8 @@
 import pygame
 import settings
 
+from world import World
+
 class Game:
     """
     Main application controller
@@ -14,6 +16,8 @@ class Game:
         self.screen = pygame.display.set_mode((settings.SCREEN_W, settings.SCREEN_H))
         self.clock = pygame.time.Clock()
 
+        self.world = World()
+
         self.running = True
 
     def handle_events(self) -> None:
@@ -25,7 +29,10 @@ class Game:
         pass
 
     def draw(self) -> None:
-        pass
+        self.screen.fill((0,0,0))
+        self.world.draw(self.screen)
+
+        pygame.display.flip()
 
     def run(self) -> None:
 
@@ -34,7 +41,7 @@ class Game:
             self.handle_events()
             self.update(dt)
             self.draw()
-            
+            self.draw()
 
         pygame.quit()
 
